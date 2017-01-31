@@ -1,0 +1,21 @@
+{
+  "name": "response-helper-functions",
+  "version": "0.0.1",
+  "description": "helper functions for returning results",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Nally",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/30x/response-helper-functions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/30x/response-helper-functions/issues"
+  },
+  "homepage": "https://github.com/30x/response-helper-functions#readme"
+}
