@@ -1,6 +1,6 @@
 'use strict'
 const randomBytes = require('crypto').randomBytes
-const INTERNALURLPREFIX = 'scheme://authority'
+const INTERNAL_URL_PREFIX = 'scheme://authority'
 
 function resultObject(func) {
   var status
@@ -73,7 +73,7 @@ function duplicate(res, err) {
 function found(res, body, accept, location, etag) {
   var headers = {}
   if (location !== undefined)
-    headers['Content-Location'] = location.startsWith(INTERNALURLPREFIX) ? location.substring(INTERNALURLPREFIX.length) : location
+    headers['Content-Location'] = externalizeURLs(location)
   if (etag !== undefined) 
     headers['Etag'] = etag
   respond(res, 200, headers, body, accept)
@@ -82,7 +82,7 @@ function found(res, body, accept, location, etag) {
 function created(res, body, accept, location, etag) {
   var headers =  {}
   if (location !== undefined)
-    headers['Location'] = location.startsWith(INTERNALURLPREFIX) ? location.substring(INTERNALURLPREFIX.length) : location
+    headers['Location'] = externalizeURLs(location)
   if (etag !== undefined)
     headers['Etag'] = etag 
   respond(res, 201, headers, body, accept)
@@ -114,8 +114,8 @@ function externalizeURLs(jsObject) {
         jsObject[key] = externalizeURLs(jsObject[key])
     }
   else if (typeof jsObject == 'string')
-    if (jsObject.startsWith(INTERNALURLPREFIX)) {
-      return jsObject.substring(INTERNALURLPREFIX.length)
+    if (jsObject.startsWith(INTERNAL_URL_PREFIX)) {
+      return jsObject.substring(INTERNAL_URL_PREFIX.length)
     }
   return jsObject
 }  
@@ -153,3 +153,4 @@ exports.unauthorized = unauthorized
 exports.internalError = internalError
 exports.resultObject = resultObject
 exports.uuid4 = uuid4
+exports.INTERNAL_URL_PREFIX = INTERNAL_URL_PREFIX
