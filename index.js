@@ -26,7 +26,7 @@ function methodNotAllowed(res, allow, body) {
 }
 
 function notFound(res, body) {
-  body = body || `Not Found. component: ${process.env.COMPONENT}`
+  body = body || `Not Found. component: ${process.env.COMPONENT_NAME}`
   body = JSON.stringify(body)
   res.writeHead(404, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
@@ -34,7 +34,7 @@ function notFound(res, body) {
 }
 
 function forbidden(res, body) {
-  body = body || `Forbidden. component: ${process.env.COMPONENT}`
+  body = body || `Forbidden. component: ${process.env.COMPONENT_NAME}`
   body = JSON.stringify(body)
   res.writeHead(403, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
