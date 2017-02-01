@@ -154,3 +154,4 @@ exports.internalError = internalError
 exports.resultObject = resultObject
 exports.uuid4 = uuid4
 exports.INTERNAL_URL_PREFIX = INTERNAL_URL_PREFIX
+exports.externalizeURLs = externalizeURLs
