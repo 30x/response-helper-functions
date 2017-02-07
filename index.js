@@ -2,7 +2,7 @@
 const randomBytes = require('crypto').randomBytes
 const INTERNAL_URL_PREFIX = 'scheme://authority'
 
-function resultObject(func) {
+function errorHandler(func) {
   var status
   var headers
   return {
@@ -11,7 +11,7 @@ function resultObject(func) {
       headers = headersArg
     },
     end: function(body) {
-      func(status, headers, body)
+      func({status: status, headers:headers, body:body})
     }
   }
 }
@@ -151,7 +151,7 @@ exports.created = created
 exports.forbidden = forbidden
 exports.unauthorized = unauthorized
 exports.internalError = internalError
-exports.resultObject = resultObject
+exports.errorHandler = errorHandler
 exports.uuid4 = uuid4
 exports.INTERNAL_URL_PREFIX = INTERNAL_URL_PREFIX
 exports.externalizeURLs = externalizeURLs
