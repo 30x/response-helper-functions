@@ -120,6 +120,33 @@ function externalizeURLs(jsObject) {
   return jsObject
 }  
 
+function toHTML(body) {
+  console.log(JSON.stringify(body, null, 2))
+  const increment = 25
+  function valueToHTML(value, indent, name) {
+    if (typeof value == 'string')
+      if (value.startsWith('http') || value.startsWith('./') || value.startsWith('/')) 
+        return `<a href="${value}"${name === undefined ? '': ` property="${name}"`}>${value}</a>`
+      else
+        return `<span${name === undefined ? '': ` property="${name}"`} datatype="string">${value}</span>`
+    else if (typeof value == 'number')
+      return `<span${name === undefined ? '': ` property="${name}"`} datatype="number">${value.toString()}</span>`
+    else if (typeof value == 'boolean')
+      return `<span${name === undefined ? '': ` property="${name}"`} datatype="boolean">${value.toString()}</span>`
+    else if (Array.isArray(value)) {
+      var rslt = value.map(x => `<li>${valueToHTML(x, indent)}</li>`)
+      return `<ol${name === undefined ? '': ` property="${name}"`}>${rslt.join('')}</ol>`
+    } else if (typeof value == 'object') {
+      var rslt = Object.keys(value).map(name => propToHTML(name, value[name], indent+increment))
+      return `<div${value.self === undefined ? '' : ` resource=${value.self}`} style="padding-left:${indent+increment}px">${rslt.join('')}</div>`
+    }
+  }
+  function propToHTML(name, value, indent) {
+    return `<p>${name}: ${valueToHTML(value, indent, name)}</p>`
+  }
+  return `<!DOCTYPE html><html><head></head><body>${valueToHTML(body, -increment)}</body></html>`
+} 
+
 // The following function adapted from https://github.com/broofa/node-uuid4 under MIT License
 // Copyright (c) 2010-2012 Robert Kieffer
 var toHex = Array(256)
