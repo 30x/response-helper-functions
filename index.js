@@ -1,17 +1,19 @@
 'use strict'
 const randomBytes = require('crypto').randomBytes
 const INTERNAL_URL_PREFIX = 'scheme://authority'
+const fs = require('fs')
+const path = require('path')
 
 function errorHandler(func) {
-  var status
+  var statusCode
   var headers
   return {
     writeHead: function(statusArg, headersArg) {
-      status = statusArg
+      statusCode = statusArg
       headers = headersArg
     },
     end: function(body) {
-      func({status: status, headers:headers, body:body})
+      func({statusCode: statusCode, headers:headers, body:body})
     }
   }
 }
@@ -168,6 +170,16 @@ function uuid4() {
 }
 // End of section of code adapted from https://github.com/broofa/node-uuid4 under MIT License
 
+const words = fs.readFileSync(path.join(__dirname, '65536words'), 'utf-8').split('\n')
+function uuidw() {
+  var buf = randomBytes(16)
+  var rslt = ''
+  for (var i = 0; i < 12; i++)
+    rslt += toHex[buf[i]]
+  rslt +=  '-' + words[buf[0] * 256 + buf[1]] + '-' + words[buf[14] * 256 + buf[15]]  
+  return rslt
+}
+
 exports.methodNotAllowed = methodNotAllowed
 exports.notFound = notFound
 exports.badRequest = badRequest
@@ -180,5 +192,6 @@ exports.unauthorized = unauthorized
 exports.internalError = internalError
 exports.errorHandler = errorHandler
 exports.uuid4 = uuid4
+exports.uuidw = uuidw
 exports.INTERNAL_URL_PREFIX = INTERNAL_URL_PREFIX
 exports.externalizeURLs = externalizeURLs
