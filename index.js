@@ -1,6 +1,6 @@
 'use strict'
 const randomBytes = require('crypto').randomBytes
-const INTERNAL_URL_PREFIX = 'scheme://authority'
+const INTERNAL_URL_PREFIX = ''
 const fs = require('fs')
 const path = require('path')
 
