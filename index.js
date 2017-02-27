@@ -18,7 +18,7 @@ function errorHandler(func) {
   }
 }
 
-function methodNotAllowed(res, allow, body) {
+function methodNotAllowed(res, body, allow) {
   body = body || 'Method not allowed'
   body = JSON.stringify(body)
   res.writeHead(405, {'Content-Type': 'application/json',
