@@ -172,11 +172,10 @@ function uuid4() {
 
 const words = fs.readFileSync(path.join(__dirname, '65536words'), 'utf-8').split('\n')
 function uuidw() {
-  var buf = randomBytes(16)
-  var rslt = ''
+  var buf = randomBytes(16), rslt = ''
   for (var i = 0; i < 12; i++)
     rslt += toHex[buf[i]]
-  rslt +=  '-' + words[buf[0] * 256 + buf[1]] + '-' + words[buf[14] * 256 + buf[15]]  
+  rslt +=  '-' + words[buf[12] * 256 + buf[13]] + '-' + words[buf[14] * 256 + buf[15]]  
   return rslt
 }
 
