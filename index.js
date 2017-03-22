@@ -19,7 +19,7 @@ function errorHandler(func) {
 }
 
 function methodNotAllowed(res, body, allow) {
-  body = body || 'Method not allowed'
+  body = body || {msg: 'Method not allowed'}
   body = JSON.stringify(body)
   res.writeHead(405, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body),
@@ -28,7 +28,7 @@ function methodNotAllowed(res, body, allow) {
 }
 
 function notFound(res, body) {
-  body = body || `Not Found. component: ${process.env.COMPONENT_NAME}`
+  body = body || {msg: `Not Found. component: ${process.env.COMPONENT_NAME}`}
   body = JSON.stringify(body)
   res.writeHead(404, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
@@ -36,7 +36,7 @@ function notFound(res, body) {
 }
 
 function forbidden(res, body) {
-  body = body || `Forbidden. component: ${process.env.COMPONENT_NAME}`
+  body = body || {msg: `Forbidden. component: ${process.env.COMPONENT_NAME}`}
   body = JSON.stringify(body)
   res.writeHead(403, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
@@ -44,7 +44,7 @@ function forbidden(res, body) {
 }
 
 function unauthorized(res, body) {
-  body = body || 'Unauthorized'
+  body = body || {msg: 'Unauthorized'}
   body = JSON.stringify(body)
   res.writeHead(401, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
@@ -52,6 +52,7 @@ function unauthorized(res, body) {
 }
 
 function badRequest(res, err) {
+  err = err || {msg: 'bad request'}
   var body = JSON.stringify(err)
   res.writeHead(400, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
@@ -59,6 +60,7 @@ function badRequest(res, err) {
 }   
 
 function internalError(res, err) {
+  err = err || {msg: 'internal error'}
   var body = JSON.stringify(err)
   res.writeHead(500, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
@@ -66,6 +68,7 @@ function internalError(res, err) {
 }   
 
 function duplicate(res, err) {
+  err = err || {msg: 'duplicate'}
   var body = JSON.stringify(err)
   res.writeHead(409, {'Content-Type': 'application/json',
                       'Content-Length': Buffer.byteLength(body)})
