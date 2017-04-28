@@ -1,6 +1,6 @@
 {
   "name": "response-helper-functions",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "helper functions for returning results",
   "main": "index.js",
   "scripts": {
