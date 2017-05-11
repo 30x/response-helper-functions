@@ -192,6 +192,7 @@ exports.created = created
 exports.forbidden = forbidden
 exports.unauthorized = unauthorized
 exports.internalError = internalError
+exports.respond = respond
 exports.errorHandler = errorHandler
 exports.uuid4 = uuid4
 exports.uuidw = uuidw
