@@ -59,6 +59,14 @@ function badRequest(res, err) {
   res.end(body)
 }   
 
+function preconditionFailed(res, err) {
+  err = err || {msg: 'precondition failed'}
+  var body = JSON.stringify(err)
+  res.writeHead(412, {'Content-Type': 'application/json',
+                      'Content-Length': Buffer.byteLength(body)})
+  res.end(body)
+}   
+
 function internalError(res, err) {
   err = err || {msg: 'internal error'}
   var body = JSON.stringify(err)
@@ -185,6 +193,7 @@ function uuidw() {
 exports.methodNotAllowed = methodNotAllowed
 exports.notFound = notFound
 exports.badRequest = badRequest
+exports.preconditionFailed = preconditionFailed
 exports.duplicate = duplicate
 exports.found = found
 exports.ok = found
