@@ -1,5 +1,5 @@
 {
-  "name": "response-helper-functions",
+  "name": "@apigee/response-helper-functions",
   "version": "0.0.18",
   "description": "helper functions for returning results",
   "main": "index.js",
