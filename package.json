@@ -1,6 +1,6 @@
 {
   "name": "@apigee/response-helper-functions",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "helper functions for returning results",
   "main": "index.js",
   "scripts": {
