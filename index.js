@@ -192,7 +192,8 @@ function uuidw(bytesOfRandom = 16, numberOfWords = 2) {
     rslt +=  words[buf[i] * 256 + buf[i+1]]
   }
   if (bytesOfRandom > bytesOfWords) {
-    rslt += '-'
+    if (numberOfWords > 0)
+      rslt += '-'
     for (let i = bytesOfWords; i < bytesOfRandom; i++)
       rslt += toHex[buf[i]]
   }
