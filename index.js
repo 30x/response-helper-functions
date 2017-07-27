@@ -182,11 +182,20 @@ function uuid4() {
 // End of section of code adapted from https://github.com/broofa/node-uuid4 under MIT License
 
 const words = fs.readFileSync(path.join(__dirname, '65536words'), 'utf-8').split('\n')
-function uuidw() {
-  var buf = randomBytes(16), rslt = ''
-  rslt +=  words[buf[0] * 256 + buf[1]] + '-' + words[buf[2] * 256 + buf[3]] + '-'
-  for (var i = 4; i < 16; i++)
-    rslt += toHex[buf[i]]
+function uuidw(bytesOfRandom = 16, numberOfWords = 2) {
+  var buf = randomBytes(bytesOfRandom), rslt = '', bytesOfWords = numberOfWords*2
+  if (bytesOfWords > bytesOfRandom)
+    throw Error('numberOfWords * 2 must be <= bytesOfRandom')
+  for (let i = 0; i < bytesOfWords; i+=2) {
+    if (i>0)
+      rslt += '-'
+    rslt +=  words[buf[i] * 256 + buf[i+1]]
+  }
+  if (bytesOfRandom > bytesOfWords) {
+    rslt += '-'
+    for (let i = bytesOfWords; i < bytesOfRandom; i++)
+      rslt += toHex[buf[i]]
+  }
   return rslt
 }
 
