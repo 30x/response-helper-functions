@@ -105,11 +105,12 @@ function respond(res, status, headers, body, accept) {
   if (body !== undefined) {
     if (!(body instanceof Buffer)) {
       var wantsHTML = accept !== undefined && accept.startsWith('text/html')
-      var contentType = headers['Content-Type']
+      var contentType = headers['content-type']
       if (!contentType)
-        contentType = headers['Content-Type'] = wantsHTML ? 'text/html' : 'application/json'
+        contentType = headers['content-type'] = wantsHTML ? 'text/html' : 'application/json'
       externalizeURLs(body)
-      body = contentType == 'text/html' ? toHTML(body) : contentType == 'application/json' ? JSON.stringify(body) : contentType == 'text/plain' ? body.toString() : body.toString()
+      let contentTypeIsJSON = contentType == 'application/json' || (contentType.startsWith('application/') && contentType.endsWith('+json'))
+      body = contentType == 'text/html' ? toHTML(body) : contentTypeIsJSON ? JSON.stringify(body) : body.toString()
     }
     headers['Content-Length'] = Buffer.byteLength(body)
   } 
