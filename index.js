@@ -135,7 +135,6 @@ function externalizeURLs(jsObject) {
 }  
 
 function toHTML(body) {
-  console.log(JSON.stringify(body, null, 2))
   const increment = 25
   function valueToHTML(value, indent, name) {
     if (typeof value == 'string')
